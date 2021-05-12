@@ -24,14 +24,12 @@ void Led::setColor(String color) {
 // ---- Inherited from Stateful
 
 String Led::composeState() {
-    return this->_color + ":" + this->getState();
+    return String(this->getState()) + ":" + this->_color;
 }
 
 void Led::changeState(bool state) {
     if (this->getState() != state) {
         this->setState(state);
-
-        Serial.println("Changing state to " + String(state));
         digitalWrite(this->getPin(), this->getState() ? HIGH : LOW); 
     }
 }

@@ -47,7 +47,7 @@ String PeriferyControl::composeState() {
     for (auto it = this->_outputs.begin(); it != this->_outputs.end(); ++it) {
         data += String(it->first) + ":" + String(it->second->getType()) + ":" + it->second->composeState();
         if (std::next(it) != this->_outputs.end()) {
-            data += ";";
+            data += ",";
         }
     }
     return data;
