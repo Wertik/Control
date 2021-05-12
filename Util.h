@@ -2,8 +2,17 @@
 #define Util_cpp
 
 #include "Arduino.h"
+#include <iostream>
+
+using namespace std;
 
 namespace utl {
+    enum State {
+        OFF,
+        ON,
+        NULL_STATE = -1
+    };
+
     inline String split(String data, char separator, int index) {
         int found = 0;
         int strIndex[] = {0, -1};
@@ -20,9 +29,20 @@ namespace utl {
         return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
     }
 
-    inline bool stringToBoolean(String str) {
+    inline State stringToBoolean(String str) {
         str.toLowerCase();
-        return str.equals("true");
+        str.trim();
+        
+        if (str.equals("true") || str.equals("1") || str.equals("yes")) {
+            return ON;
+        } else if (str.equals("false") || str.equals("0") || str.equals("no")) {
+            return OFF;
+        } else return NULL_STATE;
+    }
+
+    template<typename Base, typename T>
+    inline bool instanceof(const T*) {
+        return is_base_of<Base, T>::value;
     }
 }
 

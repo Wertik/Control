@@ -114,7 +114,7 @@ void HostedServer::loop() {
     }
     
     // Note: Replaced while loop with this to not hang the process.
-    if (this->_connectedClient.available()) {
+    while (this->_connectedClient.available()) {
         char c = this->_connectedClient.read();
 
         if (c == '\n') {
@@ -124,11 +124,9 @@ void HostedServer::loop() {
                 Serial.println("server | Received data: " + this->_data);
 
                 // End of data pool, do some shit.
-                this->_connectedClient.println(process(this->_data)); // Process and throw away
-                // this->_connectedClient.stop();
-
+                this->_connectedClient.println(process(this->_data)); // Process into commands
                 this->_data = ""; // reset data
-                // break;        
+                break;        
             } else {
                 this->_newLine = true;
             }

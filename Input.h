@@ -6,7 +6,7 @@
 class Input : public Perifery {
     private:
     public:
-        Input(int pin);
+        Input(int pin, PeriferyType type);
         void setup();
 };
 

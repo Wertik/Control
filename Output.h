@@ -1,23 +1,23 @@
 #ifndef Output_h
 #define Output_h
 
+#include "Arduino.h"
+
 #include "Perifery.h"
+#include "Controllable.h"
+#include "Stateful.h"
 
-class Output : public Perifery {
-    private:
-        bool _state = false;
+class Output : public Perifery, public Controllable {
     public:
-        Output(int pin);
+        Output(int pin, PeriferyType type);
 
-        bool switchState();
+        virtual void setup() {
+            pinMode(this->getPin(), OUTPUT);
+        }
 
-        void setState(bool state);
+        virtual String acceptCommand(String command) = 0;
 
-        bool getState();
-
-        bool readState();
-
-        void setup();
+        virtual String composeState() = 0;
 };
 
 #endif

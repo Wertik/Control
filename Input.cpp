@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "Perifery.h"
 
-Input::Input(int pin) : Perifery(pin) {
+Input::Input(int pin, PeriferyType type) : Perifery(pin, type) {
 }
 
 void Input::setup() {
